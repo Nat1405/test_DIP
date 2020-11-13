@@ -88,8 +88,10 @@ def plot_image_grid(images_np, nrow =8, factor=1, interpolation='lanczos'):
 
 def load(path):
     """Load PIL image."""
-    img = Image.open(path)
-    return img
+    img = Image.open(path).convert('L')
+    img_np = np.array(img)
+    gray = np.repeat(img_np[:, :, np.newaxis], 3, axis=2)
+    return Image.fromarray(gray)
 
 def get_image(path, imsize=-1):
     """Load an image and resize to a cpecific size. 
